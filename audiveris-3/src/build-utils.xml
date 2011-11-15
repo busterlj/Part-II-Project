@@ -1,0 +1,107 @@
+<!-- +=====================================================================+ -->
+<!-- |                                                                     | -->
+<!-- |                     b u i l d - u t i l s . x m l                   | -->
+<!-- |                                                                     | -->
+<!-- +=====================================================================+ -->
+
+<project name="audiveris-utils" basedir="..">
+    
+    <description>
+        Just a collection of utility targets
+    </description>
+
+    <import file="${basedir}/src/build.xml"/>
+
+    <!-- Just in case these properties are not already set -->
+    <property name="backup.dir"    value="m:/backup" />
+    <property name="machine.name"  value="default" />
+    <property name="netbackup.dir" value="x:/backup" />
+    
+    <!-- ============= -->
+    <!--  F O R M A T  -->
+    <!-- ============= -->
+    <target name="format"
+            description="Format Java source with Jalopy.">
+
+        <!-- Jalopy task definition -->
+        <taskdef name="jalopy"
+                 classname="de.hunsicker.jalopy.plugin.ant.AntPlugin">
+            <classpath>
+                <fileset dir="${jalopy.dir}" includes="*.jar" />
+            </classpath>
+        </taskdef>
+        
+        <jalopy
+            convention="${dev.dir}/java-convention.xml"
+            history="file"
+            historymethod="adler32"
+            loglevel="info"
+            threads="1" >
+            <fileset dir="${src.dir}">
+                <include name="**/*.java" />
+                <exclude name="**/package-info.java"/>
+            </fileset>
+        </jalopy>
+    </target>
+
+    <!-- ===================== -->
+    <!--  P R O P E R T I E S  -->
+    <!-- ===================== -->
+    <target name="properties"
+        description="Print out all properties for the build file.">
+        <echoproperties/>
+    </target>
+
+    <!-- ============================= -->
+    <!--  G L O B A L - R E P L A C E  -->
+    <!-- ============================= -->
+    <target name="global-replace"
+        description="Modify token of every source file">
+        
+        <replace encoding="utf8" dir="${basedir}/symbols">
+            <replacetoken><![CDATA[symbol ]]></replacetoken>
+            <replacevalue><![CDATA[symbol interline="8" ]]></replacevalue>
+            <include name="**/*.xml"/>
+        </replace>
+
+    </target>
+    
+    <!-- ======== -->
+    <!--  S A V E -->
+    <!-- ======== -->
+    <target name="save"
+        depends="-init"
+        description="Backup all important files" >
+        
+        <mkdir dir="${backup.dir}/${name}"/>
+
+        <!-- Save relevant directories -->
+        <zip
+            update="yes"
+            destfile="${backup.dir}/${name}/${DSTAMP}-${machine.name}-src.zip" >
+            <fileset dir="${basedir}"  
+                     includes="build.xml, src/**, config/**, symbols/**, www/**, train/*.def, nb/jp/**"
+                     excludes="${dist.excludes},www/docs/api/**,www/branding/**,nb/jp/dist/**"/>
+        </zip>
+
+    </target>
+
+    
+    <!-- ============= -->
+    <!--  U P L O A D  -->
+    <!-- ============= -->
+    <target name="upload"
+            depends="save"
+            description="Upload backup to external server">
+
+        <echo message="Uploading backup file ..."/>
+        <copy
+            verbose="${verbose}"
+            todir="${netbackup.dir}/${name}">
+            <fileset dir="${backup.dir}/${name}">
+                <include name="**/${DSTAMP}-${machine.name}-*.zip"/>
+            </fileset>
+        </copy>
+    </target>
+
+</project>
