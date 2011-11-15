@@ -1,0 +1,24 @@
+// Prints out the cycle and the training error
+cycle = jMon.getTotCicles()-jMon.getCurrentCicle()+1;
+System.out.println("Cycle #"+cycle);
+System.out.println("    Training Error:   "+jMon.getGlobalError().toString());
+
+// Creates a copy of the neural network
+jMon.setExporting(true);
+newNet = jNet.cloneNet();
+jMon.setExporting(false);
+
+// Cleans the old listeners
+newNet.removeAllListeners();
+// Set all the parameters for the validation
+nnv = new NeuralNetValidator(newNet);
+nnv.addValidationListener(this);
+nnv.start();  // Validates the net
+
+void netValidated(NeuralValidationEvent e) {
+	// Shows the RMSE at the end of the cycle
+	NN = e.getSource();
+	System.out.println("    Validation Error: "+NN.getMonitor().getGlobalError().toString());
+}
+
+

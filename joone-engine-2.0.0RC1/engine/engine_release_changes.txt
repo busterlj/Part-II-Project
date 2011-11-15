@@ -1,0 +1,176 @@
+1.2.2
+New Feature: Added the SoftmaxLayer, useful to resolve 1 of C classification problems (by Paolo Marrone)
+New Feature: Added the ImageInputSynapse to train a network directly with images (by Julien Norman)
+New Feature: Added the ImageOutputSynapse to save the output of a network within an image (by Julien Norman)
+Bug Fix: Fixed the MultipleInputSynapse in order to make it compatible with the InputConnector (by Boris Jansen)
+1.2.1
+New Feature: Added the FahlmanTeacherSynapse to implement the Fahlman criterion (by Boris Jansen)
+New Feature: Added the support for the Groovy scripting language (by Yan Cheng Cheok)
+New Feature: Added the LogarithmicPlugin to apply a logarithmic transformation (base e) to input data (by Yan Cheng Cheok)
+New Feature: Added the save as XML in the GUI Editor (needs xstream.jar in the classpath) (by Paolo Marrone)
+New Feature: Added the ErrorBasedTerminator monitor plugin in order to permit to stop the training when a predefined RMSE is reached (by Boris Jansen)
+Enhancement: Added the AbstractTeacherSynapse in order to permit to add the calculus of whatever new cost function (by Boris Jansen)
+Bug Fix: Fixed the ChartOutputSynapse: small bug in values Y axis labels (bug #1143858) (by Jan Boonen)
+Bug Fix: Fixed the lacking of the first column when copied the inspected values (bug #1158597) (by Paolo Marrone)
+Bug Fix: Fixed a problem about the data not reloaded after calling StreamInputSynapse.resetInput (#1164061) (by Paolo Marrone)
+Bug Fix: Fixed resetInput not propagated through the InputConnector (bug #1164064) (by Paolo Marrone)
+Bug Fix: Resolved an ArrayIndexOutOfBoundsException into the ToBinaryPlugin (by Yan Cheng Cheok)
+Bug Fix: Fixed a ArrayIndexOutOfBoundsException  within the Monitor.fireNetStopped method (by Jonathan Love)
+Bug Fix: GUI Editor: now the inspection panel doesn't show the biases for Layers for which this doesn't make sense (#) (by Paolo Marrone)
+Bug Fix: Fixed a problem that prevented the SangerSynapse from learning when in training mode (#) (by Paolo Marrone)
+1.2.0
+New Feature: Added a basic implementation of the RBF networks (by Boris Jansen)
+New Feature: Added the BiasedLinearLayer, useful to implement the RBF networks (by Boris Jansen)
+New Feature: Added the DeltaNormPlugin in order to pre-elaborate time series
+New Feature: Added the JDBCOutputSynapse to write output patterns to RDBMs via JDBC (by Julien Norman)
+New Feature: Added the SineLayer component, a layer that applies the sin(x) function to its input (by Boris Jansen)
+New Feature: Added the ShufflePlugin, an input plugin to shuffle the input patterns at each cycle
+New Feature: Added the BynaryPlugin, an input plugin to convert to binary the input values (by Boris Jansen)
+New Feature: Added the SimulatedAnnealing learning algorithm (by Boris Jansen)
+New Feature: Added the 'useRMSE' property to the Monitor object in order to choose how to calculate the error of the network: MSE or RMSE  (by Boris Jansen)
+New Feature: Added the InputConnector class in order to permit to use a unique input synapse for the entire network
+New Feature: Added the 6th column to the YahooFinanceInputSynapse in order to extract the adjusted close value
+New Feature: Added the WeightInitializer interface in order to implement a plugable mechanism to initialize the Matrix's weights according to a customizable algorithms (by Boris Jansen)
+Enhancement: Refactored the Input plugins mechanism in order to eliminate the duplicated code in both the ConverterPlugin and OutputConverterPlugin classes
+Enhancement: Added a new mechanism to manage the chosen learning algorithm
+Bug Fix: Fixed the 'Batch size never passed to BatchLearner' problem (bug #1027660)
+Bug Fix: Fixed the unwanted change of the Layer's rows value (bug #1038530) 
+Bug Fix: Fixed a problem in the YahooFinanceInputSynapse correlated with non-US stocks (bug #1047194)
+Bug Fix: Added code to prevent a clear() call when patternListeners are null (by Firestrand)
+Bug Fix: Fixed netStopped wont be invoked in recall mode (bug #1047774)
+Bug Fix: Fixed a NullPointerException when ispected a DirectSynapse (bug #1038525)
+Bug Fix: Fixed Joone cannot run within an applet (bug #1110154)
+Bug Fix: Resolved a problem about unbuffered StreamInputSynapses when a big input file is read
+1.1.1
+Bug Fix: Fixed the 'No matching patterns' problem (bug #1024973)
+Bug Fix: Fixed the globalError set to 0.0 for a cloned neural network (bug #1013956)
+Bug Fix: Fixed the missing use of the momentum parameter in the BatchLearner (bug #1024960)
+Bug Fix: Now the KohonenSynapse registers itself correctly as NeuralNetListener when deserialized (bug #1025177)
+Bug Fix: Fixed a NullPointerException in the YahooFinanceInputSynapse when no data present (bug #1026110)
+1.1.0
+New Feature: Added the 'param' property to the Monitor object in order to permit to store whatever new parameter without the need to change the java code
+New Feature: Added the RPROP algorithm (by Boris Jansen)
+New Feature: Added the method join to the NeuralNet object in order to implement a mechanism to wait for all the running thread to finish
+Enhancement: Revisited the threads synchronization to improve the training speed (improved more than 35%!)
+Enhancement: Revisited the learners handling mechanism in order to be able to add/choose dynamically the Learner components
+Bug Fix: Fixed a bug in batchmode (bug #991335) (by Boris Jansen)
+Bug Fix: Fixed a wrong calculus of the output neighbourhood radius of the GaussianLayer component when in recall mode
+Bug Fix: Fixed a bug in Layer.isRunning method (bug #1007838) (by Jerry R. Vos)
+1.0.1
+Bug Fix: Fixed a wrong initialization of the parent Monitor within the NestedNeuralLayer class
+Bug Fix: Added the netStoppedError notification to the internal NN of the NestedNeuralLayer class
+Bug Fix: The NestedNeuralLayer's randomize/addNoise method calls now have effect only when in learning mode
+Bug Fix: Resolved a wrong calculus of the validation error after consecutive runs (bug #957664)
+Bug Fix: Fixed the wrong validation error calculus when preLearning > 0 (bug #949353)
+Enhancement: Eliminated an useless warning raised by the TeacherSynapse when stopped
+1.0.0 final
+New Feature: Added the setComponent method to the Inspection interface and its inherited classes
+New Feature: Added the maxBufSize property to the input synapses based on the StreamInputTokenizer
+Enhancement: Decoupled the engine from the logging libraries to be independent from the Log4j library
+Bug Fix: The StreamInputSynapse checks now if its input patterns number is lesser than the Monitor's input patterns setting
+Bug Fix: The FileInputSynapse opens the input stream only when requested
+Bug Fix: Resolved the IOException 'too many open files' on FileOutputSynapse object
+Bug Fix: Changed the tokenizer handling into all the classes inheriting StreamInputSynapse
+Bug Fix: The NestedNeuralLayer now handles correctly the attached I/O components
+Bug Fix: The XLSInputSynapse now handles correctly sheets containing empty columns/rows
+Bug Fix: The XLSInputSynapse now handles correctly the sheet name property
+Bug Fix: The Monitor object now handles correctly the nested Monitor, if present
+1.0.0 rc1
+New Feature: Added the ComparingSynapse to compare two separate output patterns
+New Feature: Added the KohonenSynapse, WTALayer and GaussianLayer to build unsupervised SOM networks
+New Feature: Added the batch learning mode
+Enhancement: Revisited the inspecting mechanism eliminating any depends from the editor's packages
+Enhancement: Added a notification mechanism to advise all the running thread in case of a failure occurs
+Bug Fix: The File/XLSOutputSynapse objects appended the patterns at the end of the output stream. Fixed by adding the property 'append'.
+Bug Fix: The Layer.removeAllInputs/Outputs methods didn't reset the corresponding Synapse's input/outputFull properties
+0.9.9
+New Feature: Added the SnapShotPlugin recorder to create copies of a neural network at predefined intervals of time during its training phase
+New Feature: Added the YahooFinanceInputSynapse to read stock exchange time series from the Yahoo's internet service
+New Feature: Added the JDBCInputSynapse to read patterns from a wide range of database systems such as ODBC,Oracle,MySQL , Sybase as long as you have the database Vendors JDBC Driver
+New Feature: Added the UnnormalizerPlugin class to de-normalize the output of a neural network
+New Feature: Added the OutputConverterPlugin abstract class to implement any kind of post-processing plugin
+New Feature: Added the SangerSynapse to build PCA - Principal Component Analisys - neural networks
+New Feature: Added the MovingAveragePlugIn class to calculate the MA on a time series
+New Feature: Added a NetChecker object that, along with the new check() method added to all the components, permits to check the correctness of a neural network
+New Feature: Added an inspection mechanism to extract all the internal values of a component for analisys purpose
+New Feature: Added an advanced serie selector property to the ConverterPlugin class to select as input several not contiguous columns
+New Feature: Added an advanced column selector property to the StreamInputSynapse class to select as input several not contiguous columns
+New Feature: Added a 'parent' property to the Monitor object to make possible the independency of the learning state of the NestedNeuralLayer from the parent neural network
+Enhancement: Added a control mechanism that prevents a synapse to be attached simultaneously to different layers
+Enhancement: In the Monitor object changed the name of the 'patterns' property to 'trainingPatterns'
+Enhancement: Moved the validationPatterns property from the LearningSwitch to the Monitor object
+Enhancement: Substituted all the System.out/err calls with the Log4J logging mechanism
+Enhancement: To avoid that the org.joone.engine package depends on the org.joone.io package, the InputSwitchSynapse class has been moved to the org.joone.io package
+Enhancement: To avoid that the org.joone.engine.learning package depends on the org.joone.io package, the LearningSwitch class has been moved to the org.joone.util package
+Enhancement: Updated all the imports of the POI packages to adapt them to the new jakarta-poi 1.5.x
+Enhancement: To avoid race conditions, a new class has been created that raises the netStopped event from a separate Thread  
+Bug Fix: Fixed a race condition caused by the wrong management of the InterruptedException raised after a Thread.interrupt call on a running Layer
+Bug Fix: Fixed a NaN output value on the NormalizerPlugin when all the values of a serie are the same
+Bug Fix: Fixed a NullPointerException when the TeachingSynapse.setMonitor method was called with a null parameter
+Bug Fix: Now the teacher is disabled if the network runs in recall phase, as in this case it doesn't matter anymore if a desired file is attached or not
+Buf Fix: Fixed an ArrayIndexOutOfBoundsException raised when a net containing a DelaySynapse component was run
+0.9.8
+New Feature: Added the management of the macros into the NeuralNet object. Now all the BeanShell scripts are contained and managed (also transported) by the NeuralNet object
+New Feature: Added the cloneNet() method on the NeuralNet object to create a copy of a neural network
+New Feature: Added the NotSerialize interface to declare not serializable some objects during the exporting phase. Valid only for the classes inherited from the InputPatternListener and OutputPatternListener interfaces. 
+New Feature: Added the boolean Exporting property to the NeuralNet Object, useful in conjunction with the NotSerialize interface. When it's true, all the classes implementing the NotSerialize interface aren't serialized.
+New Feature: Added a mechanism to store/retrieve parameters to/from the NeuralNet object
+New feature: Added the LogarithmicLayer component
+New feature: Added the ContextLayer component
+Enhancement: Added the SynapseBeanInfo class to permit to choose which properties are visible in the editor
+Enhancement: Modified some internal mechanism to enhance the running speed
+Bug Fix: Deleted an useless error message when invoked the Layer.stop() method
+Bug Fix: TeacherSynapse calculates now the RMSE (root mean squared error) and not more the GSE (global squared error), making easier to compare the performances of the neural networks from external frameworks
+Bug Fix: Added the resetInput() method also to the TeacherSynapse and TeachingSynapse objects
+Bug Fix: Added the management of the 'enabled' property also to the xxxOutputStream and TeacherSynapse objects
+Bug Fix: NestedNeuralLayer maintains now the connections made before the NestedNeuralNet property is set. In this case it acts like a LinearLayer component
+Bug Fix: Layer now recognizes when it can't start because has not input synapses connected. It throws a RunTimeException now giving a proper message
+Bug Fix: NeuralNet recognizes when on the start() method some layers can't start. It traps the error now and resets the net
+Bug Fix: Changed the management of the i/o patterns in the synapses to make possible to build recurrent neural networks
+0.9.7
+Enhancement: The buffer size of the FileInputTokenizer changed from 64Kb to 1Mb
+Examples Enhancement: Added a new example to show the use of a trained neural network
+Bug Fix: Fixed the synchronization of the start of a neural net respect the end of the previous cycles
+0.9.6
+New Feature: Added the ScriptingPlugin to manage the net's events from a script contained in a string or file
+New Feature: Added the getLayers to the NeuralNet object to extract the vector containing all the layers of the net
+New Feature: Added the NeuralNetLoader class to load a serialized neural network
+New Feature: Added the errorChanged event to the NeuralNetListener interface, and modified all the connected classes to manage the new event
+New Feature: Added the 'validation' parameter to the Monitor object to indicate the validation phase
+New Feature: Added the NeuralNetValidator object to test a neural network on a validation data set
+New Feature: Added the LearningSwitch synapse to automate the switching of the input data set between the training and the validation set depending on the validation parameter of the Monitor object
+Bug Fix: Fixed some bugs on the StreamInputSynapse to avoid an error when an input synapse has no layers attached
+Bug Fix: Now the XLSInputSynapse can read not numeric cells
+Bug Fix: Resolved some problems about the serialization of the XLSInputSynapse object
+0.9.5
+New Feature: Added the InputSwitchSynapse object to permit to handle many inputs
+New Feature: Added the OutputSwitchSynapse object to permit to handle many outputs
+New Feature: Added the NestedNeuralNetwork object to built nested neural networks
+New Feature: Added clearest labels to some properties modifying the beaninfo classes
+New Feature: Added in the org.joone.io the Excel I/O components
+New Feature: Created the NeuralNetRunner class to run a neural net outside the GUI editor
+New Feature: Added the 'getLayer' method to the NeuralNet object to retrieve a Layer by name
+Enanchement: Refactoring of the org.joone.io's object model to permit to add new input data type
+0.9.0
+New Feature: Added the methods to get the actual engine version in the NeuralNet object
+New Feature: Added the method randomize to the Layer and Synapse objects
+New Feature: Added the method resetInput to StreamInputSynapse to reset the input buffer and read again the input stream
+Bug fix: Changed the mechanism to stop the neural net enhancing its reliability
+Bug fix: Changed the mechanism to restart a neural net
+Usability enhancement: Changed a property name of org.joone.util.MinMaxExtractor to render it more undenstandable
+0.8.6
+Example enhanchement: Created a samples directory. The XOR example has been moved there.
+0.8.5
+Bug Fix: Now the CPU usage doesn't go to 100% before running the net
+Bug Fix: Reingeneering of some components to make the engine more stable
+0.8.4
+Example enhanchement: Added the xor input file name on the command line to xor.java 
+0.8.3
+Bug fix: Setting the fileName before firstCol/lastCol, StreamInputSynapse object reads only the first row
+Bug fix: Setting the fileName = "" throws a FileNotFoundException in StreamInputSynapse object
+0.8.2
+Automated the Monitor object passing from Layer to Synapse objects
+0.8.1
+Bug Fixes: the methods Layer.setMonitor sets now also the monitors of all input synapses
+0.8.0
+First release on SourceForge.
